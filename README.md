@@ -1,42 +1,44 @@
-# Nuxt 3 Minimal Starter
+# Vue Open Storefront
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+Vue Open Storefront is a batteries-included boilerplate for Nuxt-based Shopify Storefronts.
 
-## Setup
+## Technologies
 
-Make sure to install the dependencies:
+- [Nuxt 3](https://v3.nuxtjs.org) as the Framework
+- [Storefront API](https://shopify.dev/api/storefront) as the API
+- [Pinia](https://pinia.vuejs.org) for State Management
+- [Tailwind](https://tailwindcss.com) for styling
+- [Apollo](https://www.apollographql.com) for GraphQL
+- [TypeScript](https://www.typescriptlang.org) for type safety
 
-```bash
-# yarn
-yarn install
+## Getting Started
 
-# npm
+### 1. Fork and clone this repository
+
+### 2. Install dependencies
+
+```zsh
 npm install
-
-# pnpm
-pnpm install --shamefully-hoist
+# or
+yarn install
 ```
 
-## Development Server
+### 3. Start developing locally
 
-Start the development server on http://localhost:3000
-
-```bash
+```zsh
 npm run dev
+# or
+yarn dev
 ```
 
-## Production
+## Shopify Setup
 
-Build the application for production:
+1. Create a Shopify Store or login to an existing one;
+   1. Tip: Sign up as a Shopify Partner to get access to development stores;
+2. In your store, go to apps and create a new app with Storefront API access;
+3. Install the app on your store and insert the `storefront_api_access_token` into the `.env` file;
+4. Insert the name of your storefront into the `.env` file.
 
-```bash
-npm run build
-```
+## Limitations
 
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
+Having a storefront on the bleeding edge of web technologies is great and all, but that also means that the technologies aren't tested by time as much so it may not be as stable as it could be.
