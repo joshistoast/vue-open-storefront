@@ -14,7 +14,11 @@
     "tailwindcss": "^3.0.24"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.10",
     "@pinia/nuxt": "^0.1.8",
+    "@vue/apollo-composable": "^4.0.0-alpha.16",
+    "graphql": "^16.3.0",
+    "graphql-tag": "^2.12.6",
     "pinia": "^2.0.13"
   }
 }

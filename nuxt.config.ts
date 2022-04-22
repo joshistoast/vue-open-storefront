@@ -17,6 +17,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
 
-  build: {}
+  build: {
+    transpile: [
+      '@apollo/client',
+      '@vue/apollo-composable',
+      'ts-invariant/process'
+    ]
+  }
 
 })
