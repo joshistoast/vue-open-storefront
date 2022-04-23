@@ -1,4 +1,4 @@
-# Vue Open Storefront
+# Vue Open Storefront (WIP)
 
 Vue Open Storefront is a batteries-included boilerplate for Nuxt-based Shopify Storefronts.
 
