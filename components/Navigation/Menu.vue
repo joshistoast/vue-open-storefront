@@ -10,24 +10,27 @@ interface MenuResult {
 
 // get menu
 const { result, loading, error } = useQuery<MenuResult>(menu)
-
-// watch for errors
-watch(error, () => {
-  if (error) {
-    console.error(error)
-  }
-})
+const MenuResult = useResult<MenuResult>(result)
 
 </script>
 
 <template>
-  <nav v-if="result.menu" class="flex items-baseline ml-10 space-x-4">
-    <NuxtLink
-      v-for="(menuItem, i) in result.menu.items"
-      :key="menuItem.id"
-      :to="shopUrlToRelativePath(menuItem.url)"
-    >
-      {{ menuItem.title }}
-    </NuxtLink>
+  <nav class="flex flex-col md:flex-row md:space-x-1 md:text-sm md:font-medium">
+    <template v-if="MenuResult">
+      <NuxtLink
+        v-for="(menuItem, i) in MenuResult.items"
+        :key="menuItem.id"
+        :to="shopUrlToRelativePath(menuItem.url)"
+        class="block px-3 py-2 rounded-lg hover:bg-gray-100"
+      >
+        {{ menuItem.title }}
+      </NuxtLink>
+    </template>
   </nav>
 </template>
+
+<style lang="postcss" scoped>
+.router-link-active {
+  @apply bg-gray-100 text-blue-700;
+}
+</style>

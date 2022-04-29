@@ -21,7 +21,8 @@ export default defineNuxtConfig({
   ],
 
   buildModules: [
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@vueuse/nuxt'
   ],
 
   build: {

@@ -7,9 +7,14 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@iconify/vue": "^3.2.1",
     "@nuxtjs/tailwindcss": "^5.0.3",
+    "@shopify/theme-images": "^4.1.1",
+    "@tailwindcss/typography": "^0.5.2",
+    "@vueuse/core": "^8.3.1",
+    "@vueuse/nuxt": "^8.3.1",
     "autoprefixer": "^10.4.4",
-    "nuxt": "3.0.0-rc.1",
+    "nuxt": "npm:nuxt3@latest",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.24"
   },

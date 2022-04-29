@@ -1,5 +1,5 @@
 <template>
   <div>
-    Hello World
+    TODO: Blog Page
   </div>
 </template>

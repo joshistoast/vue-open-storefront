@@ -1,11 +1,11 @@
 <script setup lang="ts">
 
-useRoute().meta.title = computed(() => 'Search')
+useRoute().meta.title = computed(() => 'Account')
 
 </script>
 
 <template>
   <div>
-    Search Page
+    Account Page
   </div>
 </template>

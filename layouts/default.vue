@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { useShop } from '~~/stores/shop'
+import { useShop } from '@/stores/shop'
 
-const shop = useShop()
 const route = useRoute()
-
-const pageTitle = computed(() => {
-  return route.meta.title ? `${route.meta.title} - ${shop.title}` : shop.title
-})
 
 useHead({
   htmlAttrs: {
     lang: "en",
   },
+  title: computed(() => {
+    return route.meta.title ?
+      `${route.meta.title} - ${useShop().title}`
+      : useShop().title
+  }),
   meta: [
-    { name: 'og:title', content: pageTitle.value },
-    { name: 'description', content: shop.description },
+    { name: 'description', content: useShop().description }
   ]
 })
 
@@ -22,17 +21,10 @@ useHead({
 
 <template>
   <div>
-    <Html>
-      <Head>
-        <Title>{{ pageTitle }}</Title>
-      </Head>
-    </Html>
-
     <NavigationBar />
 
-    <div>
+    <div class="container p-6 mx-auto">
       <slot />
     </div>
-
   </div>
 </template>

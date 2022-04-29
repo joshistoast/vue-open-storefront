@@ -60,8 +60,8 @@ export interface MenuItem {
 export interface Image {
   url: string
   id: string
-  width: Number
-  height: Number
+  width: number
+  height: number
   altText: string
 }
 export interface ImageEdge {
@@ -180,12 +180,14 @@ export interface ProductOption {
 }
 // Collections
 export interface Collection {
-  products: ProductConnection
   description: string
   descriptionHtml: string
   handle: string
   id: string
+  image: Image
+  products: ProductConnection
   title: string
+  updatedAt: string
 }
 export interface CollectionEdge {
   cursor: string
@@ -438,4 +440,15 @@ export interface Article {
   image?: Image
   tags?: string[]
   publishedAt: DateTime
+}
+
+export interface Page {
+  body: string
+  bodySummary: string
+  createdAt: DateTime
+  handle: string
+  id: string
+  seo: SEO
+  title: string
+  updatedAt: DateTime
 }

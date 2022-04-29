@@ -7,7 +7,15 @@ module.exports = {
     './nuxt.config.{js, ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      typography: ({ theme }) => ({
+        default: {
+          css: {}
+        }
+      })
+    },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }
