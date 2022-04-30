@@ -16,6 +16,7 @@ export const useShop = defineStore('shop', {
     },
     primaryDomain: null,
     moneyFormat: '$',
+    menuOpen: false,
   }),
   actions: {
     async getShopGlobals () {

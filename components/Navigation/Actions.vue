@@ -1,35 +1,58 @@
 <script setup lang="ts">
+import { useShop } from '@/stores/shop'
 import { Icon } from '@iconify/vue'
+
+const shop = useShop()
+
+const actions = [
+  {
+    icon: 'uil:user',
+    label: 'My Account',
+    to: 'account'
+  },
+  {
+    icon: 'uil:shopping-bag',
+    label: 'My Cart',
+    to: 'cart'
+  },
+  {
+    icon: 'uil:search',
+    label: 'Search',
+    to: 'search'
+  }
+]
+
+const toggleMenu = (state?: boolean) => {
+  state ? shop.menuOpen = state : shop.menuOpen = !shop.menuOpen
+}
 
 </script>
 
 <template>
   <nav class="flex flex-row space-x-1">
     <NuxtLink
-      class="p-2 rounded-lg hover:bg-gray-100"
-      :to="{ name: 'account' }"
+      v-for="(action, i) in actions"
+      :key="i"
+      :to="{ name: action.to }"
+      class="p-2 ml-1 text-gray-500 rounded-lg hover:bg-gray-100 ring-4 ring-transparent focus:ring-gray-100 active:ring-gray-200"
+      :title="action.label"
     >
-      <Icon icon="uil:user" inline class="w-6 h-6 text-current" />
+      <Icon :icon="action.icon" inline class="w-6 h-6 text-current" />
     </NuxtLink>
-    <NuxtLink
-      class="p-2 rounded-lg hover:bg-gray-100"
-      :to="{ name: 'cart' }"
+    <div
+      class="p-2 ml-1 text-gray-500 rounded-lg md:hidden hover:bg-gray-100 ring-4 ring-transparent focus:ring-gray-100 active:ring-gray-200"
+      @click="toggleMenu()"
+      :aria-expanded="shop.menuOpen"
     >
-      <Icon icon="uil:shopping-bag" inline class="w-6 h-6 text-current" />
-    </NuxtLink>
-    <NuxtLink
-      class="p-2 rounded-lg hover:bg-gray-100"
-      :to="{ name: 'search' }"
-    >
-      <Icon icon="uil:search" inline class="w-6 h-6 text-current" />
-    </NuxtLink>
+      <Icon icon="uil:ellipsis-h" inline class="w-6 h-6 text-current" />
+    </div>
   </nav>
 </template>
 
 <style lang="postcss" scoped>
 
 .router-link-active {
-  @apply bg-gray-100 text-blue-700;
+  @apply text-blue-600;
 }
 
 </style>
