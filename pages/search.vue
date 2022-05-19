@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
-useRoute().meta.title = computed(() => 'Search')
+useHead({
+  title: 'Search'
+})
 
 </script>
 

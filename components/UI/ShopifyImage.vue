@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind } from '@vueuse/core'
-import { Image } from '~/types'
-import { getSrcset } from '~/utilities/images'
+import { Image } from '@/types'
+import { getSrcset } from '@/utilities/images'
 
 interface ShopifyImage {
   image: Image

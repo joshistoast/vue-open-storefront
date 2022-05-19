@@ -63,6 +63,9 @@ export const useCart = defineStore('cart', {
       } finally {
         this.loading = false
       }
+    },
+    async addToCart (variantId: string, quantity: number) {
+      // TODO
     }
   },
   getters: {},

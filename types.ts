@@ -81,17 +81,54 @@ export interface VideoSource {
   mimeType: string
 }
 // Media
+export type PossibleMediaTypes = 'ExternalVideo' | 'MediaImage' | 'Model3d' | 'Video'
 export interface Media {
   __typename: string
-  alt: string
+  alt?: string
+  mediaContentType: MediaContentType
+  previewImage?: Image
+}
+export interface MediaImage extends Node, Media {
+  alt?: string
   id: string
-  mediaContentType: string
-  previewImage: Image
+  image?: Image
+  mediaContentType: MediaContentType
+  previewImage?: Image
 }
-export interface Video extends Media {
-  sources?: VideoSource[]
+export interface ExternalVideo extends Node, Media {
+  alt?: string
+  embeddedUrl: string
+  id: string
+  mediaContentType: MediaContentType
+  previewImage?: Image
 }
-export interface MediaImage extends Media { }
+export interface Video extends Node, Media {
+  alt?: string
+  id: string
+  mediaContentType: MediaContentType
+  previewImage?: Image
+  sources: VideoSource[]
+}
+export interface Model3d extends Node, Media {
+  alt?: string
+  id: string
+  mediaContentType: MediaContentType
+  previewImage?: Image
+  sources: Model3dSource[]
+}
+export interface Model3dSource {
+  filesize: number
+  format: string
+  mimeType: string
+  url: string
+}
+
+export const enum MediaContentType {
+  EXTERNAL_VIDEO = 'EXTERNAL_VIDEO',
+  IMAGE = 'IMAGE',
+  MODEL_3D = 'MODEL_3D',
+  VIDEO = 'VIDEO',
+}
 export interface MediaEdge {
   cursor: string
   node: Media
@@ -168,13 +205,14 @@ export interface ProductEdge {
 export interface ProductConnection {
   edges: ProductEdge[]
   pageInfo: PageInfo
+  filters: Filter[]
 }
 export interface ProductPriceRange {
   maxVariantPrice: MoneyV2
   minVariantPrice: MoneyV2
 }
 export interface ProductOption {
-  id: string
+  id?: string
   name: string
   values: string[]
 }
@@ -186,6 +224,7 @@ export interface Collection {
   id: string
   image: Image
   products: ProductConnection
+  seo: SEO
   title: string
   updatedAt: string
 }
@@ -451,4 +490,18 @@ export interface Page {
   seo: SEO
   title: string
   updatedAt: DateTime
+}
+
+export interface FilterValue {
+  count: number
+  id: string
+  input: string
+  label: string
+}
+
+export interface Filter {
+  id: string
+  label: string
+  type: string
+  values: FilterValue[]
 }

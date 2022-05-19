@@ -6,6 +6,11 @@ const shop = useShop()
 
 const actions = [
   {
+    icon: 'uil:search',
+    label: 'Search',
+    to: 'search'
+  },
+  {
     icon: 'uil:user',
     label: 'My Account',
     to: 'account'
@@ -13,13 +18,8 @@ const actions = [
   {
     icon: 'uil:shopping-bag',
     label: 'My Cart',
-    to: 'cart'
+    to: 'cart',
   },
-  {
-    icon: 'uil:search',
-    label: 'Search',
-    to: 'search'
-  }
 ]
 
 const toggleMenu = (state?: boolean) => {
@@ -34,7 +34,7 @@ const toggleMenu = (state?: boolean) => {
       v-for="(action, i) in actions"
       :key="i"
       :to="{ name: action.to }"
-      class="p-2 ml-1 text-gray-500 rounded-lg hover:bg-gray-100 ring-4 ring-transparent focus:ring-gray-100 active:ring-gray-200"
+      class="p-2 ml-1 text-gray-500 hover:text-gray-700"
       :title="action.label"
     >
       <Icon :icon="action.icon" inline class="w-6 h-6 text-current" />

@@ -28,7 +28,6 @@ const is = props.href || props.to ? resolveComponent('NuxtLink') : 'button'
     :href="href || null"
     :to="to || null"
     :disabled="disabled"
-    @click="$emit('click')"
     class="items-center justify-center font-medium border focus:ring-4 focus:outline-none"
     :class="[
       stretch  ? 'flex w-full'  : 'inline-flex w-auto justify-self-start',

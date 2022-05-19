@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { Filter } from '@/types'
 
 const productSortKeys = [
   {
@@ -45,6 +46,7 @@ export const useFilters = defineStore('filter', {
     sortKey: productSortKeys[0].value,
     reverse: false,
     query: '',
+    filters: [] as Filter[]
   }),
   getters: {},
   actions: {}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useQuery, useResult } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 import { getPage } from '@/api/pages/queries/page'
 import { Page } from '@/types'
 
@@ -15,13 +15,11 @@ const { result, loading } = useQuery<PageResult>(getPage, {
 const page = computed(() => result.value?.page)
 const isPageMissing = computed(() => !loading.value && page.value === null)
 
-useRoute().meta.title = computed(() => {
-  return !isPageMissing.value ? page.value?.title : null
-})
 useHead({
-  meta: [{name: 'description', content: computed(() => {
-    return !isPageMissing.value && page.value?.seo ? page.value.seo.description : null
-  })}]
+  title: computed(() => page.value?.seo?.title ?? page.value?.title),
+  meta: [
+    {name: 'description', content: page.value?.seo?.description ?? page.value?.bodySummary ?? null}
+  ],
 })
 
 </script>
@@ -31,7 +29,7 @@ useHead({
     <template v-if="loading">
       Loading...
     </template>
-    <template v-else-if="!isPageMissing">
+    <template v-else-if="!isPageMissing && page?.body">
       <div
         class="prose-sm prose sm:prose-base"
         v-html="page.body"

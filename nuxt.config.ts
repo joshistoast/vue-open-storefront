@@ -22,14 +22,24 @@ export default defineNuxtConfig({
 
   buildModules: [
     '@pinia/nuxt',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
   ],
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@headlessui/vue',
+        'vue',
+      ]
+    }
+  },
 
   build: {
     transpile: [
       '@apollo/client',
       '@vue/apollo-composable',
-      'ts-invariant/process'
+      'ts-invariant/process',
+      'uuid'
     ]
   }
 

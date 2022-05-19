@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useShop } from '@/stores/shop'
-import { useQuery, useResult } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 import { collectionByHandle } from '@/api/products/queries/collection'
 import { Collection } from '@/types'
 
@@ -9,23 +9,20 @@ interface CollectionResult {
 }
 
 const route = useRoute()
-const shop = useShop()
 const handle = computed(() => route.params.handle)
 
 // get collection
 const { result, loading, error, refetch, fetchMore } = useQuery<CollectionResult>(collectionByHandle, {
   handle: handle.value,
+  first: 32
 })
+const collection = computed(() => result.value?.collection)
 
-const collection = useResult(result, null, (data) => data.collection)
-const collectionMissing = computed(() => !loading.value && collection.value === null)
-
-useRoute().meta.title = computed(() => {
-  if (!collectionMissing.value) {
-    return collection.value?.title
-  } else {
-    return null
-  }
+useHead({
+  title: computed(() => collection.value?.seo?.title ?? collection.value?.title ?? null),
+  meta: [
+    {  name: 'description', content: collection.value?.seo?.description ?? collection.value?.description ?? null },
+  ],
 })
 
 </script>
@@ -35,11 +32,23 @@ useRoute().meta.title = computed(() => {
     <template v-if="loading">
       loading...
     </template>
-    <template v-else-if="!loading && !error && !collectionMissing">
+    <template v-else-if="!loading && !error && result.collection">
       <CollectionHeader :collection="result.collection" />
-      <CollectionFilters />
+
+      <section class="pt-6 pb-24" aria-labelledby="collection-heading">
+        <h2 id="products-heading" class="sr-only">Products</h2>
+        <div class="grid grid-cols-1">
+          <ProductCard
+            v-for="product in result.collection.products.edges"
+            :key="product.node.is"
+            :product="product.node"
+          />
+        </div>
+      </section>
+
+      <!-- TODO: proper product grid -->
     </template>
-    <template v-else-if="collectionMissing && !loading">
+    <template v-else>
       <PageMissing />
     </template>
   </div>

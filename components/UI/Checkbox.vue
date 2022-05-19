@@ -7,6 +7,7 @@ interface Checkbox {
   indeterminate?: boolean
   label?: string
   message?: string
+  hint?: string
   modelValue?: any
   readonly?: boolean
   inline?: boolean
@@ -18,16 +19,21 @@ const props = withDefaults(defineProps<Checkbox>(), {})
 <template>
 
   <div
-    class="items-center my-2 mr-4 w-fit"
+    class="items-center mr-4 w-fit"
     :class="[
       inline ? 'inline-flex' : 'flex',
     ]"
   >
+    <!-- TODO: emit value -->
     <input
       :id="id"
       type="checkbox"
       :disabled="disabled"
+      @input="$emit('input', $event)"
       class="w-4 h-4 text-indigo-600 border border-gray-300 rounded appearance-none focus:ring-indigo-500 focus:ring-2 ring-offset-2"
+      :class="[
+        !disabled ? 'hover:border-gray-400' : '',
+      ]"
     />
     <div class="ml-2 text-sm" v-if="label || message">
       <label
@@ -38,13 +44,22 @@ const props = withDefaults(defineProps<Checkbox>(), {})
           disabled ? 'text-gray-400' : 'text-gray-600',
         ]"
       >
-        {{ label }}
+        <span>{{ label }}</span>
+        <span
+          v-if="hint"
+          class="ml-1"
+          :class="[
+            disabled ? 'text-gray-400' : 'text-gray-500',
+          ]"
+        >
+          {{ hint }}
+        </span>
       </label>
       <p
         v-if="message"
         class="text-xs font-normal text-gray-500"
       >
-        {{ message }}
+        <span>{{ label }}</span>
       </p>
     </div>
   </div>

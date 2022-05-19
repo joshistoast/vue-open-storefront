@@ -1,3 +1,7 @@
+<div align="center">
+  <img src=".github/images/vue-open-storefront-banner copy.png" alt="Vue Open Storefront (WIP)"/>
+</div>
+
 # Vue Open Storefront (WIP)
 
 Vue Open Storefront is a batteries-included boilerplate for Nuxt-based Shopify Storefronts.

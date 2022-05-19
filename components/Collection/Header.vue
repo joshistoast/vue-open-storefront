@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Collection } from '~/types'
-import ShopifyImage from '../UI/ShopifyImage.vue';
 
 interface CollectionHeader {
   collection: Collection
@@ -17,12 +16,18 @@ const { collection } = props
     >
       <UIShopifyImage :image="collection.image" />
     </div>
-    <div class="py-4">
-      <h2 class="text-4xl font-bold leading-relaxed">{{ collection.title }}</h2>
-      <div
-        v-if="collection.descriptionHtml"
-        v-html="collection.descriptionHtml"
-      ></div>
+    <div class="relative flex flex-col items-baseline justify-between pb-6 border-b border-gray-200 pt-14">
+      <div>
+        <h2 class="text-4xl font-extrabold tracking-tight text-gray-900">{{ collection.title }}</h2>
+        <div
+          v-if="collection.descriptionHtml"
+          v-html="collection.descriptionHtml"
+          class="mt-2 text-gray-600"
+        ></div>
+      </div>
+    </div>
+    <div>
+      <Filters v-if="collection.products.filters" :filters="collection.products.filters" />
     </div>
   </div>
 </template>

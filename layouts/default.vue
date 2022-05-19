@@ -7,11 +7,7 @@ useHead({
   htmlAttrs: {
     lang: "en",
   },
-  title: computed(() => {
-    return route.meta.title ?
-      `${route.meta.title} - ${useShop().title}`
-      : useShop().title
-  }),
+  titleTemplate: '%s - ' + useShop().title,
   meta: [
     { name: 'description', content: useShop().description }
   ]

@@ -2,7 +2,9 @@
 
 const count = ref(0)
 
-useRoute().meta.title = computed(() => `Cart (${count.value})`)
+useHead({
+  title: computed(() => `Cart (${count.value})`),
+})
 </script>
 
 <template>

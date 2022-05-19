@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useQuery, useResult } from '@vue/apollo-composable'
-import { menu } from '@/api/shop/queries/menu'
+import { useQuery } from '@vue/apollo-composable'
+import { getMenu } from '@/api/shop/queries/menu'
 import { Menu } from '@/types'
 import { shopUrlToRelativePath } from '@/utilities/helpers'
 import { useShop } from '@/stores/shop'
@@ -16,8 +16,8 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const isMobileUI = breakpoints.smaller('md')
 
 // get menu
-const { result, loading, error } = useQuery<MenuResult>(menu)
-const MenuResult = useResult<MenuResult>(result)
+const { result, loading, error } = useQuery<MenuResult>(getMenu)
+const menu = computed(() => result.value?.menu)
 
 watch([useRoute(), isMobileUI], () => {
   shop.menuOpen = false
@@ -28,11 +28,11 @@ watch([useRoute(), isMobileUI], () => {
 <template>
   <nav
     v-show="isMobileUI ? menuOpen : true"
-    class="absolute inset-x-0 flex flex-col w-full font-medium bg-white border-b border-gray-100 md:items-center md:border-none md:ml-8 md:flex-row md:w-auto md:space-x-1 md:text-sm md:font-medium md:relative top-full md:bg-transparent"
+    class="absolute inset-x-0 flex flex-col w-full font-medium bg-white border-b border-gray-200 md:items-center md:border-none md:ml-8 md:flex-row md:w-auto md:space-x-1 md:text-sm md:font-medium md:relative top-full md:bg-transparent"
   >
-    <template v-if="MenuResult">
+    <template v-if="menu">
       <div
-        v-for="menuItem in MenuResult.items"
+        v-for="menuItem in menu.items"
         :key="menuItem.id"
         class="relative group"
       >
@@ -48,7 +48,7 @@ watch([useRoute(), isMobileUI], () => {
           class=""
           :class="[
             !isMobileUI
-              ? 'absolute w-60 flex flex-col opacity-0 transition-all duration-100 ease-in-out invisible transform-gpu scale-75 group-hover:scale-100 group-hover:opacity-100 group-hover:visible top-full bg-white rounded-md border border-gray-100 shadow-lg'
+              ? 'absolute w-60 flex flex-col opacity-0 transition-all duration-100 ease-in-out invisible transform-gpu scale-75 group-hover:scale-100 group-hover:opacity-100 group-hover:visible top-full bg-white rounded-md border border-gray-200 shadow-lg'
               : 'mx-3 px-3 flex flex-col border-l-2 border-gray-300'
           ]"
         >
