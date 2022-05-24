@@ -12,6 +12,17 @@ export const productVariants = gql`
             amount
             currencyCode
           }
+          compareAtPriceV2 {
+            amount
+            currencyCode
+          }
+          image {
+            altText
+            height
+            id
+            url
+            width
+          }
           quantityAvailable
           selectedOptions {
             name

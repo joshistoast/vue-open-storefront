@@ -26,7 +26,10 @@ useHead({
           <ProductMedia :media="product.media" />
           <div class="grid gap-6 my-4 auto-rows-max">
             <h1 class="text-lg font-extrabold md:text-3xl xl:text-4xl">{{ product.title }}</h1>
-            <ProductPrice />
+            <ProductPrice
+              :price-range="product.priceRange"
+              :compare-at-price-range="product.compareAtPriceRange"
+            />
             <ProductForm
               :variants="product.variants"
               :options="product.options"
