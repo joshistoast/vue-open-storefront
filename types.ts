@@ -155,7 +155,7 @@ export interface SelectedOption {
 export interface ProductVariant {
   availableForSale: boolean
   barcode: string
-  compareAtPrice: MoneyV2
+  compareAtPriceV2: MoneyV2
   id: string
   image: Image
   metafield: Metafield
