@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { useClient } from '~~/utilities/apollo-client'
-import { cartCreate } from '~~/api/cart/mutations/cartCreate'
+import { useClient } from '@/utilities/apollo-client'
+import { cartCreate, cartLinesAdd } from '@/api/cart/mutations'
+import { CartLineInput } from '@/types'
 
 export const useCart = defineStore('cart', {
   state: () => ({
@@ -64,8 +65,28 @@ export const useCart = defineStore('cart', {
         this.loading = false
       }
     },
-    async addToCart (variantId: string, quantity: number) {
-      // TODO
+    async addToCart (lines: CartLineInput[]) {
+      try {
+        this.loading = true
+        if (!this.cart.id) {
+          await this.cartCreate()
+        }
+        const { data } = await useClient().mutate({
+          mutation: cartLinesAdd,
+          variables: {
+            cartId: this.cart.id,
+            lines,
+          }
+        })
+        if (!data.cartLinesAdd) {
+          throw 'cartLinesAdd: error'
+        }
+        this.cart = data?.cartLinesAdd?.cart
+      } catch (e) {
+        return e
+      } finally {
+        this.loading = false
+      }
     }
   },
   getters: {},

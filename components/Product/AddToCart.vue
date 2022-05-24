@@ -17,7 +17,8 @@ const canAddToCart = computed(() => {
 })
 const addToCart = () => {
   if (canAddToCart.value) {
-    useCart().addToCart((props.variant?.id || useProduct().variant?.id), 1)
+    const line = { merchandiseId: props.variant?.id || useProduct().variant?.id, quantity: 1 }
+    useCart().addToCart([line])
   }
 }
 
@@ -29,6 +30,7 @@ const addToCart = () => {
     stretch
     size="lg"
     :disabled="!canAddToCart"
+    @keyup.enter="addToCart"
     @click="addToCart"
   >
     Add To Cart

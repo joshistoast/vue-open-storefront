@@ -246,6 +246,16 @@ export interface Cart {
   note: string
   updatedAt: string
 }
+export interface AttributeInput {
+  key: string
+  value: string
+}
+export interface CartLineInput {
+  attributes?: AttributeInput[]
+  merchandiseId: string
+  quantity?: number
+  sellingPlanId?: string
+}
 export type Merchandise = ProductVariant
 export interface CartEstimatedCost {
   subTotalAmount: MoneyV2

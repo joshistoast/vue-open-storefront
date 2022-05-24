@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 export const CartLines = gql`
-  fragment cartLines on Cart {
+  fragment CartLines on Cart {
     lines (first: 50) {
       edges {
         cursor
