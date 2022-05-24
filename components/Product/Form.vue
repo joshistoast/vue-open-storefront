@@ -11,12 +11,15 @@ const selectedOptions = ref<{name: string, value: string}[]>([])
 
 const variantFromSelectedOptions = computed(() => {
   // match selected options to variant's selected options
-  return props.variants.edges.find(variant => {
-    return variant.node.selectedOptions.every(
-      (selectedOption, index) =>
-        selectedOption.name === selectedOptions.value[index]?.name
-    )
-  })
+  if (selectedOptions.value.length === props.options.length) {
+    return props.variants.edges.find((variant) => {
+      return variant.node.selectedOptions.every((selectedOption, i) => {
+        return selectedOptions.value[i]?.value === selectedOption.value
+      })
+    })
+  } else {
+    return null
+  }
 })
 
 const isSelected = (option: string, value: string) => {
