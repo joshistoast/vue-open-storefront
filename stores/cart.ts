@@ -89,6 +89,13 @@ export const useCart = defineStore('cart', {
       }
     }
   },
-  getters: {},
+  getters: {
+    lineItems: (state) => {
+      return state.cart?.lines?.edges
+    },
+    lineItemsCount() {
+      return this.lineItems.length
+    }
+  },
   persist: true,
 })

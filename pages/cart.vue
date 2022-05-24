@@ -1,15 +1,13 @@
 <script setup lang="ts">
-
-const count = ref(0)
+import { useCart } from '@/stores'
 
 useHead({
-  title: computed(() => `Cart (${count.value})`),
+  title: computed(() => `Cart (${useCart().lineItemsCount})`),
 })
 </script>
 
 <template>
   <div>
     Cart Page
-    <button @click="count++" >Add</button>
   </div>
 </template>
