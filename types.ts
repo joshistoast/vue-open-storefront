@@ -1,22 +1,22 @@
 export interface storeConfig {
-  [key: string]: any;
+  [key: string]: any
 }
 // Enums
 export const enum ProductSortKeys {
-  TITLE = 'TITLE',
-  PRODUCT_TYPE = 'PRODUCT_TYPE',
-  UPDATED_AT = 'UPDATED_AT',
-  CREATED_AT = 'CREATED_AT',
-  BEST_SELLING = 'BEST_SELLING',
-  PRICE = 'PRICE',
-  ID = 'ID',
-  RELEVANCE = 'RELEVANCE',
+  TITLE = "TITLE",
+  PRODUCT_TYPE = "PRODUCT_TYPE",
+  UPDATED_AT = "UPDATED_AT",
+  CREATED_AT = "CREATED_AT",
+  BEST_SELLING = "BEST_SELLING",
+  PRICE = "PRICE",
+  ID = "ID",
+  RELEVANCE = "RELEVANCE",
 }
 export const enum CollectionSortKeys {
-  TITLE = 'TITLE',
-  UPDATED_AT = 'UPDATED_AT',
-  ID = 'ID',
-  RELEVANCE = 'RELEVANCE',
+  TITLE = "TITLE",
+  UPDATED_AT = "UPDATED_AT",
+  ID = "ID",
+  RELEVANCE = "RELEVANCE",
 }
 // Globals
 export interface QueryRoot {
@@ -57,8 +57,9 @@ export interface MenuItem {
 }
 
 // Images
-export interface Image {
-  url: string
+export interface Image<Type extends string = "image"> {
+  url: Type extends "image" ? string : undefined
+  thumbnail: Type extends "thumbnail" ? string : undefined
   id: string
   width: number
   height: number
@@ -81,7 +82,11 @@ export interface VideoSource {
   mimeType: string
 }
 // Media
-export type PossibleMediaTypes = 'ExternalVideo' | 'MediaImage' | 'Model3d' | 'Video'
+export type PossibleMediaTypes =
+  | "ExternalVideo"
+  | "MediaImage"
+  | "Model3d"
+  | "Video"
 export interface Media {
   __typename: string
   alt?: string
@@ -124,10 +129,10 @@ export interface Model3dSource {
 }
 
 export const enum MediaContentType {
-  EXTERNAL_VIDEO = 'EXTERNAL_VIDEO',
-  IMAGE = 'IMAGE',
-  MODEL_3D = 'MODEL_3D',
-  VIDEO = 'VIDEO',
+  EXTERNAL_VIDEO = "EXTERNAL_VIDEO",
+  IMAGE = "IMAGE",
+  MODEL_3D = "MODEL_3D",
+  VIDEO = "VIDEO",
 }
 export interface MediaEdge {
   cursor: string
@@ -152,12 +157,12 @@ export interface SelectedOption {
   name: string
   value: string
 }
-export interface ProductVariant {
+export interface ProductVariant<ImageType extends string = "image"> {
   availableForSale: boolean
   barcode: string
   compareAtPriceV2: MoneyV2
   id: string
-  image: Image
+  image: Image<ImageType>
   metafield: Metafield
   priceV2: MoneyV2
   product: Product
@@ -270,7 +275,7 @@ export interface CartLineInput {
   quantity?: number
   sellingPlanId?: string
 }
-export type Merchandise = ProductVariant
+export type Merchandise = ProductVariant<"thumbnail">
 export interface CartEstimatedCost {
   subTotalAmount: MoneyV2
   totalAmount: MoneyV2
@@ -352,21 +357,21 @@ export interface CustomerUserError {
   message: string
 }
 export const enum CustomerErrorCode {
-  BLANK = 'BLANK',
-  INVALID = 'INVALID',
-  TAKEN = 'TAKEN',
-  TOO_LONG = 'TOO_LONG',
-  TOO_SHORT = 'TOO_SHORT',
-  UNIDENTIFIED_CUSTOMER = 'UNIDENTIFIED_CUSTOMER',
-  CUSTOMER_DISABLED = 'CUSTOMER_DISABLED',
-  PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE = 'PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE',
-  CONTAINS_HTML_TAGS = 'CONTAINS_HTML_TAGS',
-  CONTAINS_URL = 'CONTAINS_URL',
-  TOKEN_INVALID = 'TOKEN_INVALID',
-  ALREADY_ENABLED = 'ALREADY_ENABLED',
-  NOT_FOUND = 'NOT_FOUND',
-  BAD_DOMAIN = 'BAD_DOMAIN',
-  INVALID_MULTIPASS_REQUEST = 'INVALID_MULTIPASS_REQUEST',
+  BLANK = "BLANK",
+  INVALID = "INVALID",
+  TAKEN = "TAKEN",
+  TOO_LONG = "TOO_LONG",
+  TOO_SHORT = "TOO_SHORT",
+  UNIDENTIFIED_CUSTOMER = "UNIDENTIFIED_CUSTOMER",
+  CUSTOMER_DISABLED = "CUSTOMER_DISABLED",
+  PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE = "PASSWORD_STARTS_OR_ENDS_WITH_WHITESPACE",
+  CONTAINS_HTML_TAGS = "CONTAINS_HTML_TAGS",
+  CONTAINS_URL = "CONTAINS_URL",
+  TOKEN_INVALID = "TOKEN_INVALID",
+  ALREADY_ENABLED = "ALREADY_ENABLED",
+  NOT_FOUND = "NOT_FOUND",
+  BAD_DOMAIN = "BAD_DOMAIN",
+  INVALID_MULTIPASS_REQUEST = "INVALID_MULTIPASS_REQUEST",
 }
 export interface UserError extends DisplayableError {
   field?: string[]
@@ -396,31 +401,31 @@ export interface Customer {
 // Order types
 
 export enum OrderCancelReason {
-  CUSTOMER = 'CUSTOMER',
-  DECLINED = 'DECLINED',
-  FRAUD = 'FRAUD',
-  INVENTORY = 'INVENTORY',
-  OTHER = 'OTHER',
+  CUSTOMER = "CUSTOMER",
+  DECLINED = "DECLINED",
+  FRAUD = "FRAUD",
+  INVENTORY = "INVENTORY",
+  OTHER = "OTHER",
 }
 export enum OrderFinancialStatus {
-  AUTHORIZED = 'AUTHORIZED',
-  PAID = 'PAID',
-  PARTIALLY_PAID = 'PARTIALLY_PAID',
-  PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED',
-  PENDING = 'PENDING',
-  REFUNDED = 'REFUNDED',
-  VOIDED = 'VOIDED',
+  AUTHORIZED = "AUTHORIZED",
+  PAID = "PAID",
+  PARTIALLY_PAID = "PARTIALLY_PAID",
+  PARTIALLY_REFUNDED = "PARTIALLY_REFUNDED",
+  PENDING = "PENDING",
+  REFUNDED = "REFUNDED",
+  VOIDED = "VOIDED",
 }
 export enum OrderFulfillmentStatus {
-  FULFILLED = 'FULFILLED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  ON_HOLD = 'ON_HOLD',
-  OPEN = 'OPEN',
-  PARTIALLY_FULFILLED = 'PARTIALLY_FULFILLED',
-  PENDING_FULFILLMENT = 'PENDING_FULFILLMENT',
-  RESTOCKED = 'RESTOCKED',
-  SCHEDULED = 'SCHEDULED',
-  UNFULFILLED = 'UNFULFILLED',
+  FULFILLED = "FULFILLED",
+  IN_PROGRESS = "IN_PROGRESS",
+  ON_HOLD = "ON_HOLD",
+  OPEN = "OPEN",
+  PARTIALLY_FULFILLED = "PARTIALLY_FULFILLED",
+  PENDING_FULFILLMENT = "PENDING_FULFILLMENT",
+  RESTOCKED = "RESTOCKED",
+  SCHEDULED = "SCHEDULED",
+  UNFULFILLED = "UNFULFILLED",
 }
 export interface FulfillmentTrackingInfo {
   number: string
