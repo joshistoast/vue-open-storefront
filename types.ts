@@ -238,7 +238,7 @@ export interface CollectionConnection {
 }
 // Cart
 export interface Cart {
-  lines: CartLineConnection
+  lines: CartLineConnection[]
   checkoutUrl: string
   createdAt: string
   estimatedCost: CartEstimatedCost
