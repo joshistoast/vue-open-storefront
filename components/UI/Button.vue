@@ -25,14 +25,14 @@ const is = props.href || props.to ? resolveComponent('NuxtLink') : 'button'
 <template>
   <component
     :is="is"
-    :href="href || null"
-    :to="to || null"
+    :href="!to && href ? href : null"
+    :to="!href && to ? to : null"
     :disabled="disabled"
     class="items-center justify-center font-medium border focus:ring-4 focus:outline-none"
     :class="[
       stretch  ? 'flex w-full'  : 'inline-flex w-auto justify-self-start',
       pill     ? 'rounded-full' : 'rounded-lg',
-      disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer',
+      disabled ? 'opacity-60 pointer-events-none' : 'cursor-pointer',
       color === 'default'     ? 'bg-indigo-600 border-transparent text-white hover:bg-indigo-700 focus:ring-indigo-300' :
       color === 'alternative' ? 'bg-white text-gray-900 border-gray-200 hover:bg-gray-100 hover:text-indigo-600 focus:ring-gray-200' :
       color === 'dark'        ? 'text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 border-transparent' :
