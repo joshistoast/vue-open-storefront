@@ -588,21 +588,21 @@ export enum UnitSystem {
 // Globals
 export interface Language {
   endonymName: string
-  isoCode: LanguageCode
+  isoCode: keyof typeof LanguageCode
   name: string
 }
 
 export interface Currency {
-  isoCode: CurrencyCode
+  isoCode: keyof typeof CurrencyCode
   name: string
   symbol: string
 }
 export interface Country {
   availableLanguages: Language[]
   currency: Currency
-  isoCode: CountryCode
+  isoCode: keyof typeof CountryCode
   name: string
-  unitSystem: UnitSystem
+  unitSystem: keyof typeof UnitSystem
 }
 export interface QueryRoot {
   products: ProductConnection
@@ -611,7 +611,7 @@ export interface QueryRoot {
 }
 export interface MoneyV2 {
   amount: number
-  currencyCode: string
+  currencyCode: CurrencyCode
 }
 export interface SEO {
   title: string
@@ -1136,13 +1136,13 @@ export type ShopPolicy<Type extends string = 'unique'> = Type extends 'unique'
 
 export type ShopPolicyWithDefault = ShopPolicy<'default'>
 export interface PaymentSettings {
-  acceptedCardBrands: AcceptedCardBrand[]
+  acceptedCardBrands: Array<keyof typeof AcceptedCardBrand>
   cardVaultUrl: string
-  countryCode: CountryCode
-  currencyCode: CurrencyCode
-  enabledPresentmentCurrencies: CurrencyCode[]
+  countryCode: keyof typeof CountryCode
+  currencyCode: keyof typeof CurrencyCode
+  enabledPresentmentCurrencies: Array<keyof typeof CurrencyCode>
   shopifyPaymentsAccountId?: string
-  supportedDigitalWallets: DigitalWallet[]
+  supportedDigitalWallets: Array<keyof typeof DigitalWallet>
 }
 
 export interface Localization {
@@ -1162,7 +1162,7 @@ export interface Shop {
   privacyPolicy?: ShopPolicy
   refundPolicy?: ShopPolicy
   shippingPolicy?: ShopPolicy
-  shipsToCountries: CountryCode[]
+  shipsToCountries: Array<keyof typeof CountryCode>
   subscriptionPolicy?: ShopPolicyWithDefault
   termsOfService?: ShopPolicy
 }
