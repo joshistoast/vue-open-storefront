@@ -1,5 +1,5 @@
 export interface storeConfig {
-  [key: string]: any;
+  [key: string]: any
 }
 // Enums
 export const enum ProductSortKeys {
@@ -57,8 +57,9 @@ export interface MenuItem {
 }
 
 // Images
-export interface Image {
-  url: string
+export interface Image<Type extends string = 'image'> {
+  url: Type extends 'image' ? string : undefined
+  thumbnail: Type extends 'thumbnail' ? string : undefined
   id: string
   width: number
   height: number
@@ -81,7 +82,11 @@ export interface VideoSource {
   mimeType: string
 }
 // Media
-export type PossibleMediaTypes = 'ExternalVideo' | 'MediaImage' | 'Model3d' | 'Video'
+export type PossibleMediaTypes =
+  | 'ExternalVideo'
+  | 'MediaImage'
+  | 'Model3d'
+  | 'Video'
 export interface Media {
   __typename: string
   alt?: string
@@ -152,12 +157,12 @@ export interface SelectedOption {
   name: string
   value: string
 }
-export interface ProductVariant {
+export interface ProductVariant<ImageType extends string = 'image'> {
   availableForSale: boolean
   barcode: string
   compareAtPriceV2: MoneyV2
   id: string
-  image: Image
+  image: Image<ImageType>
   metafield: Metafield
   priceV2: MoneyV2
   product: Product
@@ -270,7 +275,7 @@ export interface CartLineInput {
   quantity?: number
   sellingPlanId?: string
 }
-export type Merchandise = ProductVariant
+export type Merchandise = ProductVariant<'thumbnail'>
 export interface CartEstimatedCost {
   subTotalAmount: MoneyV2
   totalAmount: MoneyV2
