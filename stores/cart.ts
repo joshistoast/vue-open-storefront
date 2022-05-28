@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useClient } from '@/utilities/apollo-client'
 import { cartCreate, cartLinesAdd } from '@/api/cart/mutations'
 import { CartLineInput } from '@/types'
+import { formatLocalePrice } from '@/utilities/money'
 
 export const useCart = defineStore('cart', {
   state: () => ({
@@ -90,12 +91,36 @@ export const useCart = defineStore('cart', {
     }
   },
   getters: {
-    lineItems: (state) => {
-      return state.cart?.lines?.edges
-    },
+    lineItems: (state) => state.cart?.lines?.edges,
     lineItemsCount() {
       return this.lineItems.length
-    }
+    },
+    subtotalAmount: (state): string => {
+      const amount = +state.cart.estimatedCost.subtotalAmount.amount
+      const code = state.cart.estimatedCost.subtotalAmount.currencyCode
+      return formatLocalePrice(+amount, "en-US", code)
+    },
+    totalDutyAmount: (state): string => {
+      if (!state?.cart?.estimatedCost?.totalDutyAmount) {
+        return null
+      }
+      const amount = +state?.cart?.estimatedCost?.totalDutyAmount?.amount
+      const code = state?.cart?.estimatedCost?.totalDutyAmount?.currencyCode
+      return formatLocalePrice(+amount, "en-US", code)
+    },
+    totalTaxAmount: (state): string => {
+      if (!state?.cart?.estimatedCost?.totalTaxAmount) {
+        return null
+      }
+      const amount = +state.cart.estimatedCost.totalTaxAmount.amount
+      const code = state.cart.estimatedCost.totalTaxAmount.currencyCode
+      return formatLocalePrice(+amount, "en-US", code)
+    },
+    totalAmount: (state): string => {
+      const amount = +state.cart.estimatedCost.totalAmount.amount
+      const code = state.cart.estimatedCost.totalAmount.currencyCode
+      return formatLocalePrice(+amount, "en-US", code)
+    },
   },
   persist: true,
 })
