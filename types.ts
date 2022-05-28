@@ -261,7 +261,7 @@ export interface CartLineInput {
   quantity?: number;
   sellingPlanId?: string;
 }
-export type Merchandise = ProductVariant;
+export type Merchandise = ProductVariant<"thumbnail">;
 export interface CartEstimatedCost {
   subTotalAmount: MoneyV2;
   totalAmount: MoneyV2;
