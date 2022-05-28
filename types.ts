@@ -238,7 +238,7 @@ export interface CollectionConnection {
 }
 // Cart
 export interface Cart {
-  lines: CartLineConnection[]
+  lines: CartLineConnection
   checkoutUrl: string
   createdAt: string
   estimatedCost: CartEstimatedCost
@@ -246,6 +246,20 @@ export interface Cart {
   note: string
   updatedAt: string
 }
+export interface CartLineConnection {
+  edges: CartLineEdge[]
+}
+export interface CartLine {
+  estimatedCost: CartLineEstimatedCost
+  id: string
+  merchandise: Merchandise
+  quantity: Number
+}
+export interface CartLineEdge {
+  cursor: string
+  node: CartLine
+}
+
 export interface AttributeInput {
   key: string
   value: string
@@ -263,14 +277,6 @@ export interface CartEstimatedCost {
   totalDutyAmount: MoneyV2
   totalTaxAmount: MoneyV2
 }
-
-export interface CartLineConnection {
-  estimatedCost: CartLineEstimatedCost
-  id: string
-  merchandise: Merchandise
-  quantity: Number
-}
-
 
 export interface CartLineEstimatedCost {
   subtotalAmount: MoneyV2
