@@ -1,46 +1,94 @@
 import { defineStore } from 'pinia'
 import { getShop } from '~~/api/shop/queries/shop'
 import { useClient } from '~~/utilities/apollo-client'
+import {
+  Shop,
+  Localization,
+  CurrencyCode,
+  CountryCode,
+  UnitSystem,
+  LanguageCode,
+} from '@/types'
 
-export const useShop = defineStore('shop', {
+type ShopMut = {
+  shop: Shop
+  localization: Localization
+}
+
+interface ShopState extends Omit<Shop, 'name'> {
+  title: string
+  localization: Localization
+  loading: boolean
+  menuOpen: boolean
+}
+
+type ShopActions = {
+  getShopGlobals(): Promise<void>
+}
+
+export const useShop = defineStore<'shop', ShopState, {}, ShopActions>('shop', {
   state: () => ({
+    id: '',
     title: '',
-    description: '',
-    loading: false,
-    localization: {
-      country: {
-        currency: {
-          isoCode: 'USD',
-        }
-      }
-    },
-    primaryDomain: null,
     moneyFormat: '$',
+    paymentSettings: {
+      acceptedCardBrands: [],
+      cardVaultUrl: '',
+      countryCode: CountryCode.US,
+      currencyCode: CurrencyCode.USD,
+      enabledPresentmentCurrencies: [],
+      supportedDigitalWallets: [],
+    },
+    primaryDomain: {
+      host: '',
+      sslEnabled: false,
+      url: '',
+    },
+    shipsToCountries: [],
+    localization: {
+      availableContries: [],
+      availableLanguages: [],
+      country: {
+        availableLanguages: [],
+        currency: {
+          isoCode: CurrencyCode.USD,
+          name: '',
+          symbol: '$',
+        },
+        isoCode: CountryCode.US,
+        name: '',
+        unitSystem: UnitSystem.METRIC_SYSTEM,
+      },
+      language: {
+        endonymName: '',
+        isoCode: LanguageCode.EN,
+        name: '',
+      },
+    },
+    loading: false,
     menuOpen: false,
   }),
   actions: {
-    async getShopGlobals () {
+    async getShopGlobals() {
       try {
         this.loading = true
-        const { data } = await useClient().query({
-          query: getShop
+        const { data } = await useClient().query<ShopMut>({
+          query: getShop,
         })
 
-        if (!data.shop) {
-          throw "No shop data"
+        if (!data.shop || !data.localization) {
+          throw 'No shop data'
         }
-        this.title = data?.shop?.name ?? ''
-        this.description = data?.shop?.description ?? ''
-        this.moneyFormat = data?.shop?.moneyFormat ?? '$'
-        this.localization = data?.shop?.localization ?? {}
-        this.primaryDomain = data?.shop?.primaryDomain ?? null
-
+        const { name, ...shop } = data.shop
+        const localization = data.localization
+        this.localization = localization
+        Object.entries(shop).forEach(([key, value]) => (this[key] = value))
       } catch (e) {
         return e
       } finally {
         this.loading = false
       }
-    }
+    },
   },
   getters: {},
   persist: true,
