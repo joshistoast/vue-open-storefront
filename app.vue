@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { useShop } from './stores/shop'
+import { useShop } from '@/stores'
 import GettingStarted from './components/GettingStarted.vue'
 
-const shopStore = useShop()
 const { pending, error } = await useAsyncData('shop', () => {
-  return shopStore.getShopGlobals()
+  return useShop().getShopGlobals()
 })
 const runtime = useRuntimeConfig().public
 
