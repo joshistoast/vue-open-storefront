@@ -70,7 +70,6 @@ export const useShop = defineStore<'shop', ShopState, {}, ShopActions>('shop', {
   }),
   actions: {
     async getShopGlobals() {
-      console.log('HELLO')
       try {
         this.loading = true
         const { data } = await useClient().query<ShopMut>({
