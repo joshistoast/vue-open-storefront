@@ -873,8 +873,70 @@ export interface CartLineEstimatedCost {
   totalAmount: MoneyV2
 }
 
-// Customer Types
+// Blog
+export interface ArticleAuthor {
+  bio: string
+  email: string
+  firstName: string
+  lastName: string
+  name: string
+}
+export interface Blog {
+  authors: ArticleAuthor[]
+  handle: string
+  id: string
+  metafield: Metafield
+  onlineStoreUrl: string
+  seo: SEO
+  title: string
+  articles: ArticleConnection
+}
+export interface ArticleConnection {
+  edges: ArticleEdge[]
+  pageInfo: PageInfo
+}
+export interface ArticleEdge {
+  cursor: string
+  node: Article
+}
+export interface Article {
+  authorV2?: ArticleAuthor
+  blog: Blog
+  content: string
+  contentHtml: string
+  excerpt?: string
+  excerptHtml?: string
+  handle: string
+  id: string
+  image?: Image
+  metafield?: Metafield
+  onlineStoreUrl?: string
+  publishedAt: DateTime
+  seo?: SEO
+  tags: string[]
+  title: string
+  comments: CommentConnection
+}
+export interface CommentConnection {
+  edges: CommentEdge[]
+  pageInfo: PageInfo
+}
+export interface CommentEdge {
+  cursor: string
+  node: Comment
+}
+export interface Comment {
+  author: CommentAuthor
+  content: string
+  contentHtml: string
+  id: string
+}
+export interface CommentAuthor {
+  email: string
+  name: string
+}
 
+// Customer
 export interface MailingAddressConnection {
   edges: MailingAddressEdge[]
   pageInfo: PageInfo
@@ -1072,19 +1134,6 @@ export interface Order {
   subtotalPriceV2: MoneyV2
   totalPriceV2: MoneyV2
   lineItems: OrderLineItemConnection
-}
-
-export interface Article {
-  id: string
-  handle: string
-  title: string
-  content: string
-  contentHtml: string
-  excerpt?: string
-  excerptHTML?: string
-  image?: Image
-  tags?: string[]
-  publishedAt: DateTime
 }
 
 export interface Page {
