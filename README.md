@@ -22,10 +22,10 @@ Vue Open Storefront comes packaged with all the standard features found in a typ
 
 ## Roadmap
 
-- [ ] Product Page
-  - [ ] Select variants
-  - [ ] Add to cart
-  - [ ] Display details
+- [x] Product Page
+  - [x] Select variants
+  - [x] Add to cart
+  - [x] Display details
 - [ ] Cart
   - [x] Add to cart
   - [x] Remove from cart
