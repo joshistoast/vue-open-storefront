@@ -70,6 +70,7 @@ export const useShop = defineStore<'shop', ShopState, {}, ShopActions>('shop', {
   }),
   actions: {
     async getShopGlobals() {
+      console.log('HELLO')
       try {
         this.loading = true
         const { data } = await useClient().query<ShopMut>({
@@ -82,7 +83,10 @@ export const useShop = defineStore<'shop', ShopState, {}, ShopActions>('shop', {
         const { name, ...shop } = data.shop
         const localization = data.localization
         this.localization = localization
-        Object.entries(shop).forEach(([key, value]) => (this[key] = value))
+        for (const [key, value] of Object.entries(shop)) {
+          this[key] = value
+        }
+        this.title = name
       } catch (e) {
         return e
       } finally {
