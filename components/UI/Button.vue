@@ -48,7 +48,7 @@ const is = props.href || props.to ? resolveComponent('NuxtLink') : 'button'
     <span v-if="icon && (prependIcon || (!prependIcon && !appendIcon))">
       <Icon :icon="icon" class="w-6 h-6 mx-1" />
     </span>
-    <span class="mx-1"><slot /></span>
+    <span class="mx-1 leading-tight"><slot /></span>
     <span v-if="icon && appendIcon && !prependIcon">
       <Icon :icon="icon" class="w-6 h-6 mx-1" />
     </span>
