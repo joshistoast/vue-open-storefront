@@ -67,7 +67,7 @@ const emit = defineEmits<{
         :disabled="disabled"
         :value="modelValue"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        class="block w-full py-2 pr-[1.25em] border border-gray-300 rounded-md hover:border-gray-400 focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm"
+        class="block leading-tight w-full py-2 pr-[1.25em] border border-gray-300 rounded-md hover:border-gray-400 focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm"
         :class="[
           icon ? 'pl-8' : 'pl-[1.25em]',
           stretch ? 'w-full' : '',
