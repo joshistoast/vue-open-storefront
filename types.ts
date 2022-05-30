@@ -585,6 +585,15 @@ export enum UnitSystem {
   IMPERIAL_SYSTEM = 'IMPERIAL_SYSTEM',
   METRIC_SYSTEM = 'METRIC_SYSTEM',
 }
+
+export enum DeliveryMethodType {
+  LOCAL = 'LOCAL',
+  NONE = 'NONE',
+  PICKUP_POINT = 'PICKUP_POINT',
+  PICK_UP = 'PICK_UP',
+  RETAIL = 'RETAIL',
+  SHIPPING = 'SHIPPING',
+}
 // Globals
 export interface Language {
   endonymName: string
@@ -609,9 +618,14 @@ export interface QueryRoot {
   collections: CollectionConnection
   cart: Cart
 }
+
+export interface Connection<T> {
+  edges: T[]
+  pageInfo: PageInfo
+}
 export interface MoneyV2 {
   amount: number
-  currencyCode: CurrencyCode
+  currencyCode: keyof typeof CurrencyCode
 }
 export interface SEO {
   title: string
@@ -827,15 +841,38 @@ export interface CollectionConnection {
   pageInfo: PageInfo
 }
 // Cart
+
+export interface CartDiscountCode {
+  applicable: boolean
+  code: string
+}
+export interface CartDeliveryOption {
+  code?: string
+  deliveryMethodType: keyof typeof DeliveryMethodType
+  description?: string
+  estimatedCost: MoneyV2
+  title?: string
+}
+
+export interface CartDeliveryGroup {
+  deliveryAddress: MailingAddress
+  deliveryOptions: Array<CartDeliveryOption>
+  id: string
+}
 export interface Cart {
-  lines: CartLineConnection
+  attributes: Array<Attribute>
+  buyerIdentity: CartBuyerIdentity
+  lines: Connection<CartLine>
   checkoutUrl: string
   createdAt: string
   estimatedCost: CartEstimatedCost
   id: string
-  note: string
+  note?: string
   updatedAt: string
+  discountCodes: Array<CartDiscountCode>
+  deliveryGroups: Connection<CartDeliveryGroup>
 }
+
 export interface CartLineConnection {
   edges: CartLineEdge[]
 }
@@ -850,6 +887,10 @@ export interface CartLineEdge {
   node: CartLine
 }
 
+export interface Attribute {
+  key: string
+  value?: string
+}
 export interface AttributeInput {
   key: string
   value: string
@@ -869,7 +910,7 @@ export interface CartLineUpdateInput {
 }
 export type Merchandise = ProductVariant<'thumbnail'>
 export interface CartEstimatedCost {
-  subTotalAmount: MoneyV2
+  subtotalAmount: MoneyV2
   totalAmount: MoneyV2
   totalDutyAmount: MoneyV2
   totalTaxAmount: MoneyV2
@@ -991,8 +1032,15 @@ export interface CustomerAccessTokenDeletePayload {
   userErrors: UserError[]
 }
 export interface CartBuyerIdentityInput {
-  countryCode?: string
+  countryCode?: keyof typeof CountryCode
   customerAccessToken?: string
+  email?: string
+  phone?: string
+}
+
+export interface CartBuyerIdentity {
+  countryCode?: keyof typeof CountryCode
+  customer?: Customer
   email?: string
   phone?: string
 }
