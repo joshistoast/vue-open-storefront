@@ -47,9 +47,9 @@ Vue Open Storefront comes packaged with all the standard features found in a typ
   - [ ] Search products
   - [ ] Filter products
   - [ ] Search blog posts
-- [ ] Blog
-  - [ ] View articles by blog
-  - [ ] View blog article
+- [x] Blog
+  - [x] View articles by blog
+  - [x] View blog article
 - [x] Pages
   - [x] View page
 - [ ] Shop
