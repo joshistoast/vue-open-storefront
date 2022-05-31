@@ -8,7 +8,7 @@ interface Button {
   stretch?: boolean
   disabled?: boolean
   href?: string
-  to?: string
+  to?: string | Object
   color?: 'default' | 'alternative' | 'dark' | 'light' | 'green' | 'red' | 'yellow'
   pill?: boolean
   size?: 'sm' | 'md' | 'lg'
