@@ -38,7 +38,7 @@ const formatPrice = (price: number) =>
 </script>
 
 <template>
-  <div class="flex tracking-wide">
+  <div class="flex text-lg font-medium tracking-wide">
     <template v-if="useFallbackPrice">
       <span v-if="priceVaries">
         {{ formatPrice(priceRange?.minVariantPrice?.amount) }} - {{ formatPrice(priceRange?.maxVariantPrice?.amount) }}

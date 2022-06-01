@@ -37,7 +37,7 @@ useHead({
 
       <section class="pt-6 pb-24" aria-labelledby="collection-heading">
         <h2 id="products-heading" class="sr-only">Products</h2>
-        <div class="grid grid-cols-1">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <ProductCard
             v-for="product in result.collection.products.edges"
             :key="product.node.is"
