@@ -985,7 +985,7 @@ export interface CustomerAccessTokenCreatePayload {
 export interface CustomerAccessTokenDeleteInput {
   accessToken: string
 }
-export interface CustomerAccessTokenDeletePaylod {
+export interface CustomerAccessTokenDeletePayload {
   deletedAccessToken?: string
   deletedCustomerAccessTokenId?: string
   userErrors: UserError[]
