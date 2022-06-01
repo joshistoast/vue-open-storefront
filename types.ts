@@ -860,6 +860,13 @@ export interface CartLineInput {
   quantity?: number
   sellingPlanId?: string
 }
+export interface CartLineUpdateInput {
+  attributes?: AttributeInput[]
+  id: string
+  merchandiseId?: string
+  quantity?: number
+  sellingPlanId?: string
+}
 export type Merchandise = ProductVariant<'thumbnail'>
 export interface CartEstimatedCost {
   subTotalAmount: MoneyV2
