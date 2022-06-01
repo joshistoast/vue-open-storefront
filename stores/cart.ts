@@ -1,8 +1,13 @@
 import { defineStore } from 'pinia'
 import { useClient } from '@/utilities/apollo-client'
-import { cartCreate, cartLinesAdd, cartLinesRemove } from '@/api/cart/mutations'
-import { CartLineInput } from '@/types'
+import { CartLineInput, CartLineUpdateInput } from '@/types'
 import { formatLocalePrice } from '@/utilities/money'
+import {
+  cartCreate,
+  cartLinesAdd,
+  cartLinesRemove,
+  cartLinesUpdate
+} from '@/api/cart/mutations'
 
 export const useCart = defineStore('cart', {
   state: () => ({
@@ -109,7 +114,26 @@ export const useCart = defineStore('cart', {
         this.loading = false
       }
     },
-    async updateCartItem (lines: CartLineInput[]) {}
+    async updateCartItem (lines: CartLineUpdateInput[]) {
+      try {
+        this.loading = true
+        if (!this.cart.id) {
+          await this.cartCreate()
+        }
+        const { data } = await useClient().mutate({
+          mutation: cartLinesUpdate,
+          variables: {
+            cartId: this.cart.id,
+            lines,
+          }
+        })
+        this.cart = data?.cartLinesUpdate?.cart
+      } catch (e) {
+        return e
+      } finally {
+        this.loading = false
+      }
+    }
   },
   getters: {
     lineItems: (state) => state.cart?.lines?.edges,

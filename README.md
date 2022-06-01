@@ -26,10 +26,10 @@ Vue Open Storefront comes packaged with all the standard features found in a typ
   - [x] Select variants
   - [x] Add to cart
   - [x] Display details
-- [ ] Cart
+- [x] Cart
   - [x] Add to cart
   - [x] Remove from cart
-  - [ ] Update cart item
+  - [x] Update cart item
 - [ ] Customers
   - [ ] Sign in
   - [ ] Create account

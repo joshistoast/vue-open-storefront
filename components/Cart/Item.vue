@@ -9,6 +9,8 @@ interface CartItem {
 }
 const props = defineProps<CartItem>()
 
+const quantity = ref(props.item.node.quantity)
+
 const image = {
   url: props.item.node.merchandise.product.featuredImage.thumbnail,
   width: +props.item.node.merchandise.product.featuredImage.width,
@@ -27,6 +29,19 @@ const askRemove = () => {
     useCart().removeFromCart([props.item.node.id])
   }
 }
+const updateQuantity = () => {
+  const line = {
+    id: props.item.node.id,
+    quantity: +quantity.value,
+  }
+  useCart().updateCartItem([line])
+}
+
+watch(quantity, (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    updateQuantity()
+  }
+})
 
 </script>
 
@@ -60,7 +75,11 @@ const askRemove = () => {
         </div>
         <div>{{ price }}</div>
       </div>
-      <!-- <div>Quantity Select</div> -->
+      <UISelect
+        size="sm"
+        v-model="quantity"
+        :options="[...Array(10).keys()].map(i => i + 1)"
+      />
       <div @click="askRemove" class="text-gray-400 cursor-pointer hover:text-gray-600">
         <Icon icon="uil:times" class="w-6 h-6" />
       </div>
