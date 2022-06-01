@@ -41,7 +41,7 @@ Vue Open Storefront comes packaged with all the standard features found in a typ
     - [ ] Set default address
 - [ ] Collections
   - [ ] Filter products
-  - [ ] Load more products
+  - [x] Load more products
   - [x] Display products
 - [ ] Search
   - [ ] Search products

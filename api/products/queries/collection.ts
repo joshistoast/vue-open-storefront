@@ -6,6 +6,7 @@ export const collectionByHandle = gql`
   query collection(
     $handle: String!
     $first: Int
+    $after: String
   ) {
     collection(
       handle: $handle
@@ -29,6 +30,7 @@ export const collectionByHandle = gql`
       updatedAt
       products (
         first: $first
+        after: $after
       ) {
         pageInfo {
           hasNextPage
