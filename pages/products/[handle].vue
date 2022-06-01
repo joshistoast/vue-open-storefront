@@ -35,7 +35,10 @@ useHead({
               :options="product.options"
             />
             <ProductAddToCart />
-            <div class="text-gray-600" v-html="product.descriptionHtml"></div>
+            <div
+              class="prose text-gray-600 prose-base"
+              v-html="product.descriptionHtml"
+            ></div>
           </div>
         </div>
       </template>
