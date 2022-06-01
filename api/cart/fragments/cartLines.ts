@@ -45,6 +45,7 @@ export const CartLines = gql`
                 id
                 featuredImage {
                   ... on Image {
+                    id
                     thumbnail: url(transform: { maxWidth: 160, maxHeight: 160 })
                   }
                   altText
