@@ -1,5 +1,6 @@
 export interface storeConfig {
-  [key: string]: any
+  storefrontApiToken: string
+  storefrontApiUrl: string
 }
 // Enums
 export const enum ProductSortKeys {

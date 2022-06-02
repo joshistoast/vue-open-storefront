@@ -1,4 +1,5 @@
 import { defineNuxtConfig } from 'nuxt'
+import { useStoreConfig } from './store.config'
 
 export default defineNuxtConfig({
 
@@ -6,8 +7,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      storefrontApiAccessToken: process.env.STOREFRONT_API_ACCESS_TOKEN,
-      storefrontApiEndpoint: process.env.STOREFRONT_API_ENDPOINT,
+      storefrontApiAccessToken: useStoreConfig.storefrontApiToken,
+      storefrontApiEndpoint: useStoreConfig.storefrontApiUrl,
     }
   },
 
