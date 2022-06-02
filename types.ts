@@ -580,6 +580,16 @@ export const enum CollectionSortKeys {
   ID = 'ID',
   RELEVANCE = 'RELEVANCE',
 }
+export const enum ProductCollectionSortKeys {
+  BEST_SELLING = 'BEST_SELLING',
+  COLLECTION_DEFAULT = 'COLLECTION_DEFAULT',
+  CREATED = 'CREATED',
+  ID = 'ID',
+  MANUAL = 'MANUAL',
+  PRICE = 'PRICE',
+  RELEVANCE = 'RELEVANCE',
+  TITLE = 'TITLE',
+}
 
 export enum UnitSystem {
   IMPERIAL_SYSTEM = 'IMPERIAL_SYSTEM',
