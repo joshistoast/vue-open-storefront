@@ -1,11 +1,6 @@
 import { defineStore } from 'pinia'
 import { useClient } from '@/utilities/apollo-client'
-<<<<<<< HEAD
 import { CartLineInput, Cart, CurrencyCode, CartLineUpdateInput } from '@/types'
-=======
-import { cartCreate, cartLinesAdd, cartLinesRemove } from '@/api/cart/mutations'
-import { CartLineInput, Cart, CurrencyCode } from '@/types'
->>>>>>> 7f6f76badec18dcf8c2477301991c5625d729fcf
 import { formatLocalePrice } from '@/utilities/money'
 import {
   cartCreate,
@@ -42,11 +37,7 @@ interface CartActions {
   getCart(): Promise<CartState>
   addToCart(lines: CartLineInput[]): Promise<CartState>
   removeFromCart(lines: string[]): Promise<CartState>
-<<<<<<< HEAD
   updateCartItem(lines: CartLineUpdateInput[]): Promise<CartState>
-=======
-  updateCartItem(lines: CartLineInput[]): Promise<CartState>
->>>>>>> 7f6f76badec18dcf8c2477301991c5625d729fcf
 }
 
 export const useCart = defineStore<'cart', CartState, {}, CartActions>('cart', {
@@ -170,7 +161,6 @@ export const useCart = defineStore<'cart', CartState, {}, CartActions>('cart', {
       } finally {
         this.loading = false
         return this
-<<<<<<< HEAD
       }
     },
     async updateCartItem(lines: CartLineUpdateInput[]) {
@@ -194,13 +184,6 @@ export const useCart = defineStore<'cart', CartState, {}, CartActions>('cart', {
         return this
       }
     },
-=======
-      }
-    },
-    async updateCartItem(lines) {
-      return this
-    },
->>>>>>> 7f6f76badec18dcf8c2477301991c5625d729fcf
   },
   getters: {
     lineItems: (state) => state.cart.lines.edges,
