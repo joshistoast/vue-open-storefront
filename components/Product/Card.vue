@@ -17,9 +17,10 @@ const hasImage = !!props.product.media?.edges[0]
       :to="{ name: 'products-handle', params: { handle: product.handle } }"
       class="grid gap-4 group"
     >
-      <div class="object-cover object-center w-full overflow-hidden rounded-lg aspect-square bg-gray-50 group-hover:opacity-70">
+      <div class="w-full overflow-hidden rounded-lg aspect-square bg-gray-50 group-hover:opacity-70">
         <UIShopifyImage
           v-if="hasImage"
+          class="object-cover object-center w-full h-full"
           :image="product.media.edges[0].node.previewImage"
         />
       </div>
