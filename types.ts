@@ -1025,6 +1025,18 @@ export interface MailingAddress extends Node {
   zip?: string
 }
 
+export interface CustomerCreateInput {
+  acceptsMarketing?: boolean
+  email: string
+  firstName?: string
+  lastName?: string
+  password: string
+  phone?: string
+}
+export interface CustomerCreatePayload {
+  customer: Customer
+  customerUserErrors: CustomerUserError[]
+}
 export interface CustomerAccessTokenCreateInput {
   email: string
   password: string
