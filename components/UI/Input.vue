@@ -10,6 +10,7 @@ interface Input {
   readonly?: boolean
   message?: string
   error?: boolean
+  required?: boolean
   icon?: string
   type?: string
   id?: string | ReturnType<typeof uuidv4>
@@ -66,8 +67,9 @@ const emit = defineEmits<{
         :placeholder="placeholder ?? null"
         :disabled="disabled"
         :value="modelValue"
+        :required="required"
         @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        class="block leading-tight w-full py-2 pr-[1.25em] border border-gray-300 rounded-md hover:border-gray-400 focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm"
+        class="block leading-tight w-full py-2 pr-[1.25em] border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm"
         :class="[
           icon ? 'pl-8' : 'pl-[1.25em]',
           stretch ? 'w-full' : '',
