@@ -1261,7 +1261,7 @@ export interface PaymentSettings {
 }
 
 export interface Localization {
-  availableContries: Country[]
+  availableCountries: Country[]
   availableLanguages: Language[]
   country: Country
   language: Language

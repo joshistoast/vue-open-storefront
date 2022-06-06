@@ -46,7 +46,7 @@ export const useShop = defineStore<'shop', ShopState, {}, ShopActions>('shop', {
     },
     shipsToCountries: [],
     localization: {
-      availableContries: [],
+      availableCountries: [],
       availableLanguages: [],
       country: {
         availableLanguages: [],

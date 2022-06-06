@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
-import { useClient } from '@/utilities/apollo-client'
+import { useClient, formatLocalePrice } from '@/utilities'
 import { CartLineInput, Cart, CurrencyCode, CartLineUpdateInput } from '@/types'
-import { formatLocalePrice } from '@/utilities/money'
 import {
   cartCreate,
   cartLinesAdd,
@@ -101,6 +100,7 @@ export const useCart = defineStore<'cart', CartState, CartGetters, CartActions>(
     }),
     actions: {
       async cartCreate() {
+        if (this.cart.id) return this
         try {
           this.loading = true
           const { data } = await useClient().mutate<CartMutCreate>({
@@ -119,12 +119,9 @@ export const useCart = defineStore<'cart', CartState, CartGetters, CartActions>(
         }
       },
       async getCart() {
-        if (!this.cart.id) {
-          await this.cartCreate()
-        }
-
         try {
           this.loading = true
+          await this.cartCreate()
         } catch (e) {
           return e
         } finally {
@@ -135,9 +132,7 @@ export const useCart = defineStore<'cart', CartState, CartGetters, CartActions>(
       async addToCart(lines) {
         try {
           this.loading = true
-          if (!this.cart.id) {
-            await this.cartCreate()
-          }
+          await this.cartCreate()
           const { data } = await useClient().mutate<CartMutAdd>({
             mutation: cartLinesAdd,
             variables: {
@@ -159,6 +154,7 @@ export const useCart = defineStore<'cart', CartState, CartGetters, CartActions>(
       async removeFromCart(lines) {
         try {
           this.loading = true
+          await this.cartCreate()
           const { data } = await useClient().mutate<CartMutRemove>({
             mutation: cartLinesRemove,
             variables: {
@@ -180,9 +176,7 @@ export const useCart = defineStore<'cart', CartState, CartGetters, CartActions>(
       async updateCartItem(lines: CartLineUpdateInput[]) {
         try {
           this.loading = true
-          if (!this.cart.id) {
-            await this.cartCreate()
-          }
+          await this.cartCreate()
           const { data } = await useClient().mutate({
             mutation: cartLinesUpdate,
             variables: {
@@ -201,9 +195,7 @@ export const useCart = defineStore<'cart', CartState, CartGetters, CartActions>(
     },
     getters: {
       lineItems: (state) => state.cart.lines.edges,
-      lineItemsCount() {
-        return this.lineItems.length
-      },
+      lineItemsCount: (state) => state.cart.lines.edges.length,
       subtotalAmount: (state): string => {
         const amount = +state.cart.estimatedCost.subtotalAmount.amount
         const code = state.cart.estimatedCost.subtotalAmount.currencyCode
