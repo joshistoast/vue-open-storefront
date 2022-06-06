@@ -8,6 +8,6 @@ useHead({
 
 <template>
   <div>
-    Account Page
+    <NuxtPage></NuxtPage>
   </div>
 </template>
