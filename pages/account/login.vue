@@ -7,6 +7,7 @@ import { useCustomer } from '@/stores'
 const email = ref('')
 const password = ref('')
 const canLogin = computed(() => email.value && password.value)
+const isSignedIn = computed(() => useCustomer().isSignedIn)
 const loginErrors = computed(() => useCustomer().customerUserErrors)
 
 const submitLogin = () => {
@@ -17,6 +18,11 @@ const submitLogin = () => {
 onMounted(() => {
   const createdEmailParam = useRoute().params.email
   createdEmailParam ? typeof createdEmailParam === 'string' ? email.value = createdEmailParam : email.value = createdEmailParam[0] : false
+})
+watch([isSignedIn], () => {
+  if (isSignedIn.value) {
+    navigateTo({ name: 'account' })
+  }
 })
 </script>
 
