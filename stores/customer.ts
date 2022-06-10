@@ -85,5 +85,7 @@ export const useCustomer = defineStore('customer', {
   persist: {
     paths: ['customer', 'customerAccessToken'],
   },
-  getters: {},
+  getters: {
+    isSignedIn: (state) => !!state.customerAccessToken,
+  },
 })
