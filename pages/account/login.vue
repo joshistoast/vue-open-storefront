@@ -28,7 +28,6 @@ watch([isSignedIn], () => {
 
 <template>
   <div>
-    <h1 class="pb-6 text-lg font-extrabold border-b border-gray-200 md:text-3xl xl:text-4xl pt-14">Login</h1>
     <form
       class="grid max-w-xs gap-4 my-6"
       @submit.prevent="submitLogin"
