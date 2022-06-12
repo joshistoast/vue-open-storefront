@@ -12,4 +12,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
   if (to.name === 'account-login' && useCustomer().isSignedIn) {
     return navigateTo({ name: 'account' })
   }
+  // redirect to account if visits register page and is already logged in
+  if (to.name === 'account-register' && useCustomer().isSignedIn) {
+    return navigateTo({ name: 'account' })
+  }
 })
