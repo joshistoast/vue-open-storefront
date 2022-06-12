@@ -31,8 +31,8 @@ Vue Open Storefront comes packaged with all the standard features found in a typ
   - [x] Remove from cart
   - [x] Update cart item
 - [ ] Customers
-  - [ ] Sign in
-  - [ ] Create account
+  - [x] Sign in
+  - [x] Create account
   - [ ] View order history
   - [ ] Manage addresses
     - [ ] Add address
