@@ -7,6 +7,7 @@ import {
   CustomerAccessToken,
   CustomerUserError,
   CustomerAccessTokenCreatePayload,
+  CustomerAccessTokenDeletePayload,
   CustomerCreateInput,
   CustomerCreatePayload,
 } from '@/types'
@@ -23,7 +24,9 @@ type CustomerMutTokenCreate = {
   customerAccessTokenCreate: CustomerAccessTokenCreatePayload
 }
 
-type CustomerMutTokenDelete = {}
+type CustomerMutTokenDelete = {
+  customerAccessTokenDelete: CustomerAccessTokenDeletePayload
+}
 
 type CustomerGet = {
   customer: Customer
@@ -68,7 +71,21 @@ export const useCustomer = defineStore(
           this.loading = false
         }
       },
-      async logout () {},
+      async logout () {
+        try {
+          this.loading = true
+          if (this.customerAccessToken.accessToken) {
+            await this.customerAccessTokenDelete(this.customerAccessToken.accessToken)
+          }
+          if (this.customer) {
+            this.customer = null
+          }
+        } catch (e) {
+          return e
+        } finally {
+          this.loading = false
+        }
+      },
       async customerAccessTokenCreate (input: CustomerAccessTokenCreateInput) {
         try {
           const { data } = await useClient().mutate<CustomerMutTokenCreate>({
@@ -88,6 +105,26 @@ export const useCustomer = defineStore(
           return e
         }
       },
+      async customerAccessTokenDelete (input: CustomerAccessTokenDeleteInput) {
+        try {
+          if (input) {
+            const { data } = await useClient().mutate<CustomerMutTokenDelete>({
+              mutation: customerAccessTokenDelete,
+              variables: {
+                customerAccessToken: input,
+              }
+            })
+            if (data.customerAccessTokenDelete.deletedAccessToken) {
+              this.customerAccessToken = null
+            }
+            if (data.customerAccessTokenDelete.userErrors) {
+              this.customerUserErrors = data.customerAccessTokenDelete.userErrors
+            }
+          }
+        } catch (e) {
+          return e
+        }
+      },
       async getCustomer (accessToken: string) {
         if (accessToken) {
           const { data } = await useClient().query({
@@ -102,7 +139,6 @@ export const useCustomer = defineStore(
           }
         }
       },
-      async customerAccessTokenDelete () {},
     },
     persist: {
       paths: ['customer', 'customerAccessToken'],
