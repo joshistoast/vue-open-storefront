@@ -5,13 +5,6 @@ export default defineNuxtConfig({
 
   ssr: true,
 
-  runtimeConfig: {
-    public: {
-      storefrontApiAccessToken: useStoreConfig.storefrontApiToken,
-      storefrontApiEndpoint: useStoreConfig.storefrontApiUrl,
-    }
-  },
-
   components: {
     global: true,
     dirs: ['~/components'],

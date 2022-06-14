@@ -1,18 +1,19 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client/core"
-import { DefaultApolloClient, provideApolloClient } from "@vue/apollo-composable"
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client/core'
+import { DefaultApolloClient, provideApolloClient } from '@vue/apollo-composable'
+import { useStoreConfig } from '@/store.config'
 
 // TODO: use language from shop store
 const lang = "en-US"
 
 export default defineNuxtPlugin((nuxtApp) => {
 
-  const config = useRuntimeConfig().public
+  const config = useStoreConfig
 
   const httpLink = createHttpLink({
     credentials: "omit",
-    uri: config.storefrontApiEndpoint,
+    uri: config.storefrontApiUrl,
     headers: {
-      "X-Shopify-Storefront-Access-Token": config.storefrontApiAccessToken,
+      "X-Shopify-Storefront-Access-Token": config.storefrontApiToken,
       "Accept-Language": lang,
       "Content-Type": "application/json",
     },

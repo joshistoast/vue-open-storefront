@@ -1,0 +1,1 @@
+export { getCustomer } from './customer'

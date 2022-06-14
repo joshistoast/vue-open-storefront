@@ -1,12 +1,20 @@
 import { defineStore } from 'pinia'
 import { useClient } from '@/utilities/apollo-client'
-import { CartLineInput, Cart, CurrencyCode, CartLineUpdateInput } from '@/types'
 import { formatLocalePrice } from '@/utilities/money'
+import {
+  CartLineInput,
+  Cart,
+  CurrencyCode,
+  CartLineUpdateInput,
+  CartBuyerIdentityInput,
+  CartBuyerIdentityPayload,
+} from '@/types'
 import {
   cartCreate,
   cartLinesAdd,
   cartLinesRemove,
   cartLinesUpdate,
+  cartBuyerIdentityUpdate
 } from '@/api/cart/mutations'
 
 type CartMutCreate = {
@@ -27,6 +35,10 @@ type CartMutRemove = {
   }
 }
 
+type CartMutBuyerUpdate = {
+  cartBuyerIdentityUpdate: CartBuyerIdentityPayload
+}
+
 interface CartState {
   cart: Cart
   loading: boolean
@@ -38,6 +50,7 @@ interface CartActions {
   addToCart(lines: CartLineInput[]): Promise<CartState>
   removeFromCart(lines: string[]): Promise<CartState>
   updateCartItem(lines: CartLineUpdateInput[]): Promise<CartState>
+  cartBuyerIdentityUpdate(buyerIdentity: CartBuyerIdentityInput): Promise<CartState>
 }
 
 type GetterFunctions =
@@ -196,6 +209,28 @@ export const useCart = defineStore<'cart', CartState, CartGetters, CartActions>(
         } finally {
           this.loading = false
           return this
+        }
+      },
+      async cartBuyerIdentityUpdate (buyerIdentity: CartBuyerIdentityInput) {
+        try {
+          if (!this.cart.id) {
+            await this.cartCreate()
+          }
+          const { data } = await useClient().mutate<CartMutBuyerUpdate>({
+            mutation: cartBuyerIdentityUpdate,
+            variables: {
+              cartId: this.cart.id,
+              buyerIdentity,
+            }
+          })
+          if (data.cartBuyerIdentityUpdate.cart) {
+            this.cart = data.cartBuyerIdentityUpdate.cart
+          }
+          if (data.cartBuyerIdentityUpdate.userErrors.length) {
+            console.error(data.cartBuyerIdentityUpdate.userErrors)
+          }
+        } catch (e) {
+          return e
         }
       },
     },
