@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {} from '@/types'
 import { useCustomer } from '@/stores'
-import {} from '@/api/customer/mutations'
+import {} from '@/apollo/customer/mutations'
 
 const customer = reactive({
   firstName: '',

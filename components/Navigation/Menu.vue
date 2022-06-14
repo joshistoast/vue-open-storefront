@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@vue/apollo-composable'
-import { getMenu } from '@/api/shop/queries/menu'
+import { getMenu } from '@/apollo/shop/queries/menu'
 import { Menu } from '@/types'
 import { shopUrlToRelativePath } from '@/utilities/helpers'
 import { useShop } from '@/stores/shop'
