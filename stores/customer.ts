@@ -9,16 +9,16 @@ import {
   CustomerAccessTokenCreatePayload,
   CustomerAccessTokenDeletePayload,
   CustomerCreateInput,
-  CustomerCreatePayload,
 } from '@/types'
 import {
   customerAccessTokenCreate,
   customerAccessTokenDelete,
-  customerCreate
+  customerCreate,
 } from '@/api/customer/mutations'
 import {
   getCustomer
 } from '@/api/customer/queries'
+import { useCart } from './cart'
 
 type CustomerMutTokenCreate = {
   customerAccessTokenCreate: CustomerAccessTokenCreatePayload
@@ -76,6 +76,7 @@ export const useCustomer = defineStore(
           this.loading = true
           if (this.customerAccessToken.accessToken) {
             await this.customerAccessTokenDelete(this.customerAccessToken.accessToken)
+            await useCart().cartBuyerIdentityUpdate({})
           }
           if (this.customer) {
             this.customer = null
@@ -133,6 +134,9 @@ export const useCustomer = defineStore(
           })
           if (data.customer) {
             this.customer = data.customer
+            useCart().cartBuyerIdentityUpdate({
+              customerAccessToken: accessToken,
+            })
           } else {
             this.customer = null
             throw new Error('No customer found')
