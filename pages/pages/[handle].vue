@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@vue/apollo-composable'
-import { getPage } from '@/api/pages/queries/page'
+import { getPage } from '@/apollo/pages/queries/page'
 import { Page } from '@/types'
 
 interface PageResult {

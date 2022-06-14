@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useShop } from '@/stores/shop'
 import { useQuery } from '@vue/apollo-composable'
-import { collectionByHandle } from '@/api/products/queries/collection'
+import { collectionByHandle } from '@/apollo/products/queries/collection'
 import { Collection } from '@/types'
 
 interface CollectionResult {

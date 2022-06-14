@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@vue/apollo-composable'
-import { getProduct } from '@/api/products/queries/product'
+import { getProduct } from '@/apollo/products/queries/product'
 import { Product } from '@/types'
 
 const { result, loading, error } = useQuery(getProduct, {

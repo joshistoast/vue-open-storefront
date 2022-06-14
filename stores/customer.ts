@@ -14,10 +14,10 @@ import {
   customerAccessTokenCreate,
   customerAccessTokenDelete,
   customerCreate,
-} from '@/api/customer/mutations'
+} from '@/apollo/customer/mutations'
 import {
   getCustomer
-} from '@/api/customer/queries'
+} from '@/apollo/customer/queries'
 import { useCart } from './cart'
 
 type CustomerMutTokenCreate = {

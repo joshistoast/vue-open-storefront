@@ -15,7 +15,7 @@ import {
   cartLinesRemove,
   cartLinesUpdate,
   cartBuyerIdentityUpdate
-} from '@/api/cart/mutations'
+} from '@/apollo/cart/mutations'
 
 type CartMutCreate = {
   cartCreate: {

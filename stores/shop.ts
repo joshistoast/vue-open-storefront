@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { getShop } from '~~/api/shop/queries/shop'
-import { useClient } from '~~/utilities/apollo-client'
+import { getShop } from '@/apollo/shop/queries/shop'
+import { useClient } from '@/utilities/apollo-client'
 import {
   Shop,
   Localization,

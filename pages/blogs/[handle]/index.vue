@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuery } from '@vue/apollo-composable'
 import { Blog } from '@/types'
-import { getBlog } from '@/api/blogs/queries/blog'
+import { getBlog } from '@/apollo/blogs/queries/blog'
 
 interface BlogResult {
   blog: Blog
