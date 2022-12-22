@@ -1,3 +1,7 @@
+# [This project has moved](https://github.com/Flag-Nor-Fail/nuxt-storefront)
+
+---
+
 <div align="center">
   <img src=".github/images/vue-open-storefront-banner copy.png" alt="Vue Open Storefront (WIP)"/>
 </div>
